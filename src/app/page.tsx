@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
 import { requireAuth } from "@/lib/auth-utils";
 
@@ -8,4 +9,10 @@ export default async function Page() {
       Protected Server{" "}
     </div>
   );
+=======
+import Image from "next/image";
+
+export default function Home() {
+  return <main className="font-sans">Just for testing purposes</main>;
+>>>>>>> origin/testing
 }
