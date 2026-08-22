@@ -22,7 +22,6 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
-  post          Post[]
 
   @@unique([email])
   @@map("user")
@@ -74,14 +73,4 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
-
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  String
-  author    User    @relation(fields: [authorId], references: [id])
 }
