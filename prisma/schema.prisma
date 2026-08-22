@@ -13,7 +13,6 @@ datasource db {
 }
 
 model User {
-<<<<<<< HEAD
   id            String    @id
   name          String
   email         String
@@ -23,6 +22,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  post          Post[]
 
   @@unique([email])
   @@map("user")
@@ -74,11 +74,7 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
-=======
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+
 }
 
 model Post {
@@ -86,7 +82,6 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
-  authorId  Int
+  authorId  String
   author    User    @relation(fields: [authorId], references: [id])
->>>>>>> origin/testing
 }
