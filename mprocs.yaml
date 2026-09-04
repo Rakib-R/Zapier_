@@ -1,0 +1,8 @@
+procs:
+  nextjs-app:
+    shell: "npm run dev"
+    env:
+      PORT: "3000"
+
+  inngest-dev:
+    shell: "npm run inn"

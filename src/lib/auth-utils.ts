@@ -20,7 +20,7 @@ export const requireUnAuth = async () => {
   });
 
   if (session) {
-    redirect("/workflows");
+    redirect("/");
   }
 
   return session;

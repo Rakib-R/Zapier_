@@ -129,7 +129,7 @@ export function LoginForm() {
     <div className="flex min-h-[calc(100vh-4rem)] w-full items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md border-muted/70 shadow-lg transition-all duration-300 hover:shadow-xl">
         <CardHeader className="space-y-1 text-center sm:text-left sm:pb-6">
-          <CardTitle className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
+          <CardTitle className="bg-linear-to-r from-foreground to-foreground/80 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
             Welcome back
           </CardTitle>
 

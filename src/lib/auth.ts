@@ -1,6 +1,5 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@/generated/prisma/client";
 import { prisma } from "./db";
 
 export const auth = betterAuth({
@@ -10,4 +9,6 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+
+  baseURL: process.env.BETTER_AUTH_URL,
 });
