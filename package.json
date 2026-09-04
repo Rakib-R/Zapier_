@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "inn": "npx inngest-cli@latest dev",
+    "inn": "inngest-cli dev",
     "dev:all": "mprocs"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^5.4.0",
     "@prisma/adapter-neon": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@sentry/nextjs": "^10.73.0",
     "@tanstack/react-query": "^5.101.0",
     "@trpc/client": "^11.17.0",
     "@trpc/server": "^11.17.0",

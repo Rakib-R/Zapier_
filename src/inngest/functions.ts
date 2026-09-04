@@ -2,6 +2,7 @@ import { inngest } from "./client";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
+import * as Sentry from "@sentry/nextjs";
 
 const google = createGoogleGenerativeAI();
 const openai = createOpenAI();
@@ -12,6 +13,7 @@ export const execute_Gemini = inngest.createFunction(
     triggers: [{ event: "execute-ai" }],
   },
   async ({ event, step }) => {
+    Sentry.logger.info("User Issued Info", { log_source: "sentry_test" });
     const { steps: geminiSteps } = await step.ai.wrap(
       "gemini_Run",
       generateText,
@@ -19,6 +21,13 @@ export const execute_Gemini = inngest.createFunction(
         model: google("gemini-3.6-flash"),
         system: " You are a very nice - Entity !",
         prompt: " When will you conquer human?",
+
+        experimental_telemetry: {
+          isEnabled: true,
+          functionId: "joke_agent",
+          recordInputs: true,
+          recordOutputs: true,
+        },
       },
     );
 
