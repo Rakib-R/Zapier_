@@ -20,9 +20,10 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 
+import { authClient } from "@/lib/auth-client";
+import { usePathname, useRouter } from "next/navigation";
+import { useHasActiveSubscription } from "@/app/features/subscriptions/hooks/use-subscription";
 const menuItems = [
   {
     title: "Home",
@@ -37,6 +38,8 @@ const menuItems = [
 export const AppSideBar = () => {
   const pathName = usePathname();
   const router = useRouter();
+
+  const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -81,25 +84,27 @@ export const AppSideBar = () => {
 
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Upgrade to Pro"
-              className="gap-x-4 h-10 px-4"
-              onClick={() => {}}
-              asChild
-            >
-              <Link href={"/upgrade"}>
-                <StarIcon className="h-4 w-4" />
-                <span>Upgrade to Pro</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {!hasActiveSubscription && !isLoading && (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                tooltip="Upgrade to Pro"
+                className="gap-x-4 h-10 px-4"
+                onClick={() => {}}
+                asChild
+              >
+                <Link href={"/upgrade"}>
+                  <StarIcon className="h-4 w-4" />
+                  <span>Upgrade to Pro</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
 
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Billing to Portal"
               className="gap-x-4 h-10 px-4"
-              onClick={() => {}}
+              onClick={() => authClient.customer.portal()}
               asChild
             >
               <Link href={"/billing"}>
