@@ -89,7 +89,7 @@ export const AppSideBar = () => {
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
                 className="gap-x-4 h-10 px-4"
-                onClick={() => {}}
+                onClick={() => authClient.checkout({ slug: "pro" })}
                 asChild
               >
                 <Link href={"/upgrade"}>

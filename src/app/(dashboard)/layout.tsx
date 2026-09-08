@@ -11,9 +11,10 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <SidebarProvider>
       <AppSideBar />
       <SidebarInset className="bg-accent/30">
-        <div className="flex items-center p-2 md:hidden">
+        <div className=" p-2 md:hidden">
           <SidebarTrigger />
         </div>
+
         {children}
       </SidebarInset>
     </SidebarProvider>

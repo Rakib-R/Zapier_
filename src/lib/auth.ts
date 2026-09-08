@@ -19,7 +19,7 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "", // ID of Product from Polar Dashboard
+              productId: "",
               slug: "", // Custom slug for easy reference in Checkout URL, e.g. /checkout/pro
             },
           ],
