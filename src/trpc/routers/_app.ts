@@ -46,5 +46,4 @@ export const appRouter = createTRPCRouter({
     return { success: true, changeWork_eventId: ids[0] };
   }),
 });
-// export type definition of API
 export type AppRouter = typeof appRouter;
