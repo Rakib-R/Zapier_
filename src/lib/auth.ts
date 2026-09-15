@@ -9,21 +9,33 @@ import {
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db";
 import { polarClient } from "./polar";
+import { haveIBeenPwned } from "better-auth/plugins";
 
 export const auth = betterAuth({
+  logger: {
+    level: "debug",
+  },
   plugins: [
+    haveIBeenPwned({
+      enabled: true, // Turns the database checks on or off
+      customPasswordCompromisedMessage:
+        "This password was found in a breach! Please use a different one.",
+      paths: ["/sign-up/email", "/change-password"], // Custom endpoints to watch
+    }),
+
     polar({
       client: polarClient,
       createCustomerOnSignUp: true,
+      enableCustomerPortal: true,
       use: [
         checkout({
           products: [
             {
-              productId: "",
-              slug: "", // Custom slug for easy reference in Checkout URL, e.g. /checkout/pro
+              productId: "YOUR_PRODUCT_ID", // ⚠️ must not be empty
+              slug: "YOUR_SLUG", // ⚠️ must not be empty
             },
           ],
-          successUrl: "/success?checkout_id={CHECKOUT_ID}",
+          successUrl: "/",
           authenticatedUsersOnly: true,
         }),
         portal(),
@@ -34,8 +46,8 @@ export const auth = betterAuth({
             console.log("something onCustomerStateChanged");
           },
           onPayload: async (payload) => {
-            await console.log("On Pay load");
-          }, // Catch-(all for all events
+            console.log("On Payload");
+          },
         }),
       ],
     }),

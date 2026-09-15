@@ -67,7 +67,7 @@ export function RegisterForm() {
     try {
       form.clearErrors("root");
 
-      const { data, error } = await authClient.signUp.email({
+      const { data: signUpData, error } = await authClient.signUp.email({
         name: values.name,
         email: values.email,
         password: values.password,

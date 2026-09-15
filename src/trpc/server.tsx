@@ -1,19 +1,18 @@
 import "server-only";
 
-import { makeQueryClient } from "./query-client";
-import { appRouter } from "./routers/_app";
 import { cache } from "react";
 import {
   createTRPCOptionsProxy,
-  TRPCQueryOptions,
+  type TRPCQueryOptions,
 } from "@trpc/tanstack-react-query";
-import { headers } from "next/headers";
-import { createTRPCContext } from "./init"; // Adjust this path to where your context function lives
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { headers } from "next/headers";
+import { makeQueryClient } from "./query-client";
+import { appRouter } from "./routers/_app";
+import { createTRPCContext } from "./init";
 
 export const getQueryClient = cache(makeQueryClient);
 
-// 2. Clear inline declarations and use your official context builder directly
 export const trpc = createTRPCOptionsProxy({
   ctx: async () => {
     return createTRPCContext({
@@ -38,12 +37,14 @@ export function HydrateClient(props: { children: React.ReactNode }) {
     </HydrationBoundary>
   );
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: tRPC query options require 'any' to satisfy internal ResolverDef constraints
 export function prefetch<T extends ReturnType<TRPCQueryOptions<any>>>(
   queryOptions: T,
 ) {
   const queryClient = getQueryClient();
   if (queryOptions.queryKey[1]?.type === "infinite") {
-    void queryClient.prefetchInfiniteQuery(queryOptions as any);
+    void queryClient.prefetchInfiniteQuery(queryOptions as never);
   } else {
     void queryClient.prefetchQuery(queryOptions);
   }

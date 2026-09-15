@@ -24,6 +24,30 @@ import { useEntitySearch } from "../hooks/use-entity-search";
 import type { workflow as WorkflowType } from "@/generated";
 import { WorkflowIcon } from "lucide-react";
 
+export const WorkflowsContainer = ({ children }: WorkflowsContainerProps) => {
+  return (
+    <EntityContainer
+      header={<WorkflowsHeader />}
+      search={<WorkflowsSearch />}
+      pagination={<WorkflowPagination />}
+    >
+      {children}
+    </EntityContainer>
+  );
+};
+export const WorkflowPagination = () => {
+  const workflows = useSuspenseWorkflows();
+  const [params, setParams] = useWorkflowsParams();
+  return (
+    <EntityPagination
+      disabled={workflows.isFetching}
+      totalPages={workflows.data.totalPages}
+      page={workflows.data.page}
+      onPageChange={(page) => setParams({ ...params, page })}
+    />
+  );
+};
+
 export default function WorkflowsLists() {
   const workflows = useSuspenseWorkflows();
   return (
@@ -72,29 +96,6 @@ interface WorkflowsContainerProps {
   children: React.ReactNode;
 }
 
-export const WorkflowsContainer = ({ children }: WorkflowsContainerProps) => {
-  return (
-    <EntityContainer
-      header={<WorkflowsHeader />}
-      search={<WorkflowsSearch />}
-      pagination={<WorkflowPagination />}
-    >
-      {children}
-    </EntityContainer>
-  );
-};
-export const WorkflowPagination = () => {
-  const workflows = useSuspenseWorkflows();
-  const [params, setParams] = useWorkflowsParams();
-  return (
-    <EntityPagination
-      disabled={workflows.isFetching}
-      totalPages={workflows.data.totalPages}
-      page={workflows.data.page}
-      onPageChange={(page) => setParams({ ...params, page })}
-    />
-  );
-};
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
   const { searchValue, onSearchChange } = useEntitySearch({
@@ -111,7 +112,7 @@ export const WorkflowsSearch = () => {
 };
 
 export const WorkflowsLoading = () => {
-  return <LoadingView entity="Loading Workflows" />;
+  return <LoadingView entity="Loading Workflows" message={""} />;
 };
 
 export const WorkflowsError = () => {

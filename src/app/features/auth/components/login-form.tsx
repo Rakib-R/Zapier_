@@ -70,7 +70,7 @@ export function LoginForm() {
 
       toast.success("Logged in successfully!");
 
-      router.push("/dashboard");
+      router.push("/");
       router.refresh();
     } catch (err: any) {
       const errorMessage =

@@ -49,7 +49,7 @@ export const EntityHeader = ({
   isCreating = false,
 }: EntityHeaderProps) => {
   return (
-    <div className="flex flex-col gap-2 pb-6 sm:flex-row sm:items-center sm:justify-between border-b ">
+    <div className="flex flex-col gap-2 pb-6 sm:flex-row sm:items-center sm:justify-between ">
       <header className="space-y-1">
         <h1 className="text-xl md:text-2xl font-bold tracking-tight">
           {title}
@@ -127,7 +127,7 @@ export const EntitySearch = ({
   placeholder = "Search",
 }: EntitySearchProps) => {
   return (
-    <div className="relative mr-auto sm:ml-auto py-2 my-4">
+    <div className="relative sm:ml-auto py-2 my-4">
       <SearchIcon className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
       <Input
         className="pl-8 max-w-200px bg-background shadow-none border-border "
@@ -179,7 +179,8 @@ interface StateViewProps {
 }
 
 interface LoadingViewProps extends StateViewProps {
-  entity: string;
+  entity?: string;
+  message: string;
 }
 
 export const LoadingView = ({
